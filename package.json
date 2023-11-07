@@ -3,14 +3,17 @@
   "private": true,
   "version": "0.0.0",
   "type": "module",
+  "homepage": "https://nevty.github.io/life/",
   "scripts": {
     "dev": "vite",
     "build": "tsc && vite build",
+    "deploy": "npm run build && gh-pages -d dist",
     "preview": "vite preview"
   },
   "dependencies": {
     "effector": "^22.5.0",
     "effector-react": "^22.4.0",
+    "gh-pages": "^6.0.0",
     "konva": "^8.4.2",
     "patronum": "^1.14.1",
     "react": "^18.2.0",

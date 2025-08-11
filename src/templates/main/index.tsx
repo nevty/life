@@ -2,7 +2,6 @@ import { useEffect, useRef } from "react"
 import { useUnit } from "effector-react";
 import { setCells } from "../../atoms/cell";
 import { $gameSettings, GameControls, GameBoard, convertPresetToIndexedCells, setGameSettings, stopGame, GridControls } from "../../organism/gameboard"
-import { stats } from "../../organism/gameboard/ui/stats";
 import { PresetSelector } from '../../organism/preset-selector';
 import { PRESETS } from "./presets";
 
@@ -10,7 +9,6 @@ import { PRESETS } from "./presets";
 export const Main = () => {
   const settings = useUnit($gameSettings)
   const containerRef = useRef<HTMLDivElement>(null)
-  const statsRef = useRef<HTMLDivElement>(null)
 
   const selectCellSize = (size: number) => {
     const { width, height } = settings
@@ -53,12 +51,6 @@ export const Main = () => {
     }
   }, [])
 
-  useEffect(() => {
-    if (statsRef.current) {
-      statsRef.current.appendChild(stats.dom)
-    }
-  }, [])
-
   return (
     <div style={{
       display: 'flex',
@@ -67,7 +59,6 @@ export const Main = () => {
       alignItems: 'start',
       gap: '20px'
     }}>
-      <div ref={statsRef} style={{ position: 'absolute', bottom: '10px', right: '10px', zIndex: 1 }} />
       <div
         style={{
           height: '70vh',

@@ -35,8 +35,8 @@ sample({
     clock: tick,
     source: {
         cells: $cells,
-        settigns: $gameSettings
+        settings: $gameSettings
     },
-    fn: ({ cells, settigns: { cols, rows } }) => cycleIndexedCells(cells, [cols, rows]),
+    fn: ({ cells, settings: { cols, rows } }) => cycleIndexedCells(cells, [cols, rows]),
     target: $cells
 });

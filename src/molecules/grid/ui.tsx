@@ -4,10 +4,10 @@ import { LifeCell } from "../../atoms/cell"
 
 const CELLS_OUTLINE_COLOR = '#171717';
 
-const CELLS_OUTLINE_CONFIG: Konva.LineConfig = {
+const getCellOutlineConfig = (cellSize: number): Konva.LineConfig => ({
 	stroke: CELLS_OUTLINE_COLOR,
-	strokeWidth: 1
-}
+	strokeWidth: Math.min(1, cellSize / 3),
+});
 
 type GridPros = {
 	width: number
@@ -19,8 +19,8 @@ type GridPros = {
 }
 
 export const Grid = ({ width, height, cols, rows, cellSize, cells }: GridPros) => {
-	const cellOutlinesX = new Array(cols).fill(CELLS_OUTLINE_CONFIG)
-	const cellOutlinesY = new Array(rows).fill(CELLS_OUTLINE_CONFIG)
+	const cellOutlinesX = new Array(cols).fill(getCellOutlineConfig(cellSize))
+	const cellOutlinesY = new Array(rows).fill(getCellOutlineConfig(cellSize))
 
 	return (
 		<Layer listening={false} >

@@ -3,6 +3,7 @@ import { interval } from "patronum";
 
 import { $cells } from "../../atoms/cell";
 import { cycleIndexedCells } from "../../molecules/grid";
+import { withStats } from "./ui/stats";
 
 type GameSettings = {
     width: number,
@@ -37,6 +38,6 @@ sample({
         cells: $cells,
         settings: $gameSettings
     },
-    fn: ({ cells, settings: { cols, rows } }) => cycleIndexedCells(cells, [cols, rows]),
+    fn: ({ cells, settings: { cols, rows } }) => withStats(() => cycleIndexedCells(cells, [cols, rows])),
     target: $cells
 });

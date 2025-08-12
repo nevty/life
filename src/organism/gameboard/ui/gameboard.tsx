@@ -27,7 +27,7 @@ export const GameBoard = ({ width, height, cols, rows, cellSize }: GameBoardProp
     const handleWheel = (e: Konva.KonvaEventObject<WheelEvent>) => {
         e.evt.preventDefault();
         const newScale = scale + (e.evt.deltaY > 0 ? -0.1 : 0.1);
-        let clampedScale = Math.max(0.5, Math.min(newScale, 3));
+        let clampedScale = Math.max(0.5, Math.min(newScale, 6));
 
         const pointer = stageRef.current?.getPointerPosition();
         if (!pointer) return;

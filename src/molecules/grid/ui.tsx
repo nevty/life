@@ -16,9 +16,10 @@ type GridPros = {
 	rows: number
 	cellSize: number
 	cells: number[]
+	cellColor: string
 }
 
-export const Grid = ({ width, height, cols, rows, cellSize, cells }: GridPros) => {
+export const Grid = ({ width, height, cols, rows, cellSize, cells, cellColor }: GridPros) => {
 	const cellOutlinesX = new Array(cols).fill(getCellOutlineConfig(cellSize))
 	const cellOutlinesY = new Array(rows).fill(getCellOutlineConfig(cellSize))
 
@@ -35,6 +36,7 @@ export const Grid = ({ width, height, cols, rows, cellSize, cells }: GridPros) =
 							x={x}
 							width={cellSize}
 							height={cellSize}
+							fill={cellColor}
 						/>
 					)
 				})}

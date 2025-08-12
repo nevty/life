@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react"
 import { useUnit } from "effector-react";
 import { setCells } from "../../atoms/cell";
+import { GameThemeSelect } from "../../atoms/game-theme";
 import { $gameSettings, GameControls, GameBoard, convertPresetToIndexedCells, setGameSettings, stopGame, GridControls } from "../../organism/gameboard"
 import { PresetSelector } from '../../organism/preset-selector';
 import { PRESETS } from "./presets";
@@ -33,7 +34,7 @@ export const Main = () => {
 
   useEffect(() => {
     if (containerRef.current) {
-      const DEFAULT_CELL_SIZE = 8
+      const DEFAULT_CELL_SIZE = 5
       const el = containerRef.current
       const elWidth = el.clientWidth
       const elHeight = el.clientHeight
@@ -78,17 +79,26 @@ export const Main = () => {
       </div>
       <div style={{
         display: 'flex',
-        flexDirection: 'column',
-        gap: '5px',
+        width: '100%',
+        justifyContent: 'space-between',
         fontSize: '14px'
       }}>
-        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '20px' }}>
-          <span>Controls:</span>
-          <GameControls />
+        <div style={{
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '5px',
+        }}>
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '20px' }}>
+            <span>Controls:</span>
+            <GameControls />
+          </div>
+          <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '20px' }}>
+            <span>Cell size:</span>
+            <GridControls onSelect={selectCellSize} />
+          </div>
         </div>
-        <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', gap: '20px' }}>
-          <span>Cell size:</span>
-          <GridControls onSelect={selectCellSize} />
+        <div>
+          <GameThemeSelect />
         </div>
       </div>
       <div style={{

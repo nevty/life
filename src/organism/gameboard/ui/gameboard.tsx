@@ -3,10 +3,9 @@ import Konva from "konva"
 import { Stage } from "react-konva"
 import { useUnit } from "effector-react"
 import { $cells, toggleCell } from "../../../atoms/cell"
+import { $theme, THEMES } from "../../../atoms/game-theme"
 import { Grid } from "../../../molecules/grid"
 import { stopGame } from "../model"
-
-const FIELD_BACKGOURND_COLOR = '#222222'
 
 type GameBoardProps = {
     width: number
@@ -19,6 +18,7 @@ type GameBoardProps = {
 export const GameBoard = ({ width, height, cols, rows, cellSize }: GameBoardProps) => {
     const cells = useUnit($cells)
     const stageRef = useRef<Konva.Stage>(null)
+    const theme = useUnit($theme)
 
     const onStageClick = ({ target }: Konva.KonvaEventObject<MouseEvent>) => {
         stopGame()
@@ -33,7 +33,7 @@ export const GameBoard = ({ width, height, cols, rows, cellSize }: GameBoardProp
             onClick={onStageClick}
             width={width}
             height={height}
-            style={{ backgroundColor: FIELD_BACKGOURND_COLOR }}
+            style={{ backgroundColor: THEMES[theme].background }}
         >
             <Grid
                 width={width}
@@ -42,6 +42,7 @@ export const GameBoard = ({ width, height, cols, rows, cellSize }: GameBoardProp
                 cols={cols}
                 rows={rows}
                 cells={cells}
+                cellColor={THEMES[theme].cell}
             />
         </Stage>
     )

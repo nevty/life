@@ -1,4 +1,4 @@
-import { useRef } from "react"
+import { useRef, useState } from "react"
 import Konva from "konva"
 import { Stage } from "react-konva"
 import { useUnit } from "effector-react"
@@ -16,21 +16,39 @@ type GameBoardProps = {
 }
 
 export const GameBoard = ({ width, height, cols, rows, cellSize }: GameBoardProps) => {
-    const cells = useUnit($cells)
-    const stageRef = useRef<Konva.Stage>(null)
-    const theme = useUnit($theme)
+    const cells = useUnit($cells);
+    const stageRef = useRef<Konva.Stage>(null);
+    const theme = useUnit($theme);
+    const [isMouseDown, setIsMouseDown] = useState(false);
 
-    const onStageClick = ({ target }: Konva.KonvaEventObject<MouseEvent>) => {
-        stopGame()
-        const point = target.getRelativePointerPosition()
-        const number = (Math.floor(point.y / cellSize) * cols) + Math.floor(point.x / cellSize)
-        toggleCell(number)
-    }
+    const toggleCellAtPosition = (point: { x: number; y: number }) => {
+        const number = (Math.floor(point.y / cellSize) * cols) + Math.floor(point.x / cellSize);
+        toggleCell(number);
+    };
+
+    const handleMouseDown = ({ target }: Konva.KonvaEventObject<MouseEvent>) => {
+        stopGame();
+        setIsMouseDown(true);
+        const point = target.getRelativePointerPosition();
+        if (point) toggleCellAtPosition(point);
+    };
+
+    const handleMouseMove = ({ target }: Konva.KonvaEventObject<MouseEvent>) => {
+        if (!isMouseDown) return;
+        const point = target.getRelativePointerPosition();
+        if (point) toggleCellAtPosition(point);
+    };
+
+    const handleMouseUp = () => {
+        setIsMouseDown(false);
+    };
 
     return (
         <Stage
             ref={stageRef}
-            onClick={onStageClick}
+            onMouseDown={handleMouseDown}
+            onMouseMove={handleMouseMove}
+            onMouseUp={handleMouseUp}
             width={width}
             height={height}
             style={{ backgroundColor: THEMES[theme].background }}

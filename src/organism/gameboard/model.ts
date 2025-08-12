@@ -20,7 +20,7 @@ export const runGame = createEvent();
 export const stopGame = createEvent();
 export const setDelay = createEvent<number>();
 
-export const $delay = createStore(20)
+export const $delay = createStore(16)
     .on(setDelay, (_, time) => time);
 export const $gameSettings = createStore<GameSettings>({ width: 0, height: 0, cols: 0, rows: 0, cellSize: 0 })
     .on(setGameSettings, (_, props) => props)

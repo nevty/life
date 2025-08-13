@@ -9,6 +9,7 @@ export const GameControls = () => {
     return (
         <div style={{
             display: 'flex',
+            flexWrap: 'wrap',
             gap: "5px"
         }}>
             {
